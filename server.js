@@ -23,15 +23,22 @@ con.connect(function(err) {
 });
 
 
-app.get("/API/ticker=AAPL", (request, response) => {
-    con.query('select * from historicdata where  ticker = "AAPL";', function(err, result) {
+app.get("/API/ticker/:ticker", (request, response) => {
+    const ticker = request.params.ticker;
+
+    con.query(`SELECT * FROM historicdata WHERE ticker = ?`, [ticker], function(err, result) {
+        if (err) {
+            console.error('Error executing query:', err);
+            response.status(500).json({ error: 'Internal server error' });
+            return;
+        }
+
         response.send(result);
-        console.log("Server is running")
-        response.end()
-    
-    });  
-   
-})
+        console.log("Server is running");
+        response.end();
+    });
+});
+
 
 
 app.get("/API/ticker=:ticker&column=:columns&period=:period", (request, response) => {
@@ -52,6 +59,22 @@ app.get("/API/ticker=:ticker&column=:columns&period=:period", (request, response
         }
     );
 });
+
+
+app.get("/", (request, response)=>{
+    response.send(`<ul>
+    <li> Click  the Links</li>
+    <li> <a  href="http://localhost:3005/API/ticker/AAPL" target="_blank">http://localhost:3005/API/ticker/AAPL</a> </li>
+    <li> <a  href="http://localhost:3005/API/ticker/YELP" target="_blank">http://localhost:3005/API/ticker/YELP</a> </li>
+
+   <li> <a href="http://localhost:3005/API/ticker=ZS&column=ticker,revenue,gp&period=5"  target="_blank">http://localhost:3005/API/ticker=ZS&column=ticker,revenue,gp&period=5</a></li>
+
+    <li><a href="http://localhost:3005/API/ticker=AAPL&column=ticker,revenue,gp&period=5"  target="_blank">http://localhost:3005/API/ticker=AAPL&column=ticker,revenue,gp&period=5</a></li>
+
+</ul>`)
+
+});
+
 
 
 const PORT = process.env.PORT || 3005; 
