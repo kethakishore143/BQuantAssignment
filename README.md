@@ -1,5 +1,6 @@
 Project README
 Introduction
+
 This repository contains code for an API built using Node.js that interacts with a MySQL hosted database.
 The API retrieves financial data based on specified parameters such as ticker symbol, columns (e.g., revenue, gross profit), and period (e.g., 5 years). 
 The performance of the API in terms of load times has been evaluated using Postman.
@@ -12,7 +13,7 @@ Clone the Repository: Clone this repository to your local machine using the foll
 
 bash
 Copy code
-git clone https://github.com/kethakishore143/BQuantAssignment/git
+git clone https://github.com/kethakishore143/BQuantAssignment.git
 Install Dependencies: Navigate to the project directory and install the necessary dependencies using npm:
 
 bash
@@ -44,11 +45,13 @@ Performance Evaluation
 Load times for the API endpoints have been evaluated using Postman. Below are the recorded load times for two sample API requests:
 
 API Requset 1: /ticker/AAPL
+
 Load Time: 87 milliseconds
 
 API Request 2: /ticker=AAPL&column=revenue,gp&period=5y
 
 Load Time: 87 milliseconds
+
 API Request 3: /ticker=ZS&column=revenue,gp&period=5y
 
 Load Time: 89 milliseconds
@@ -56,4 +59,5 @@ Load Time: 89 milliseconds
 API Request 4: /ticker=YELP
 
 Load Time: 97 milliseconds
+
 Note: The actual load times may vary depending on factors such as server performance, network latency, and database size.
